@@ -1,12 +1,13 @@
 package com.example.tencenter.rxandroiddemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import rx.Observable;
@@ -35,7 +36,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        InitObserverr();
+        findViewById(R.id.RxAndroid).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RxDemoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        InitObserver();
         InitSubscriber();
 
 //        myObserveable.subscribe(mySubscriber);
@@ -162,7 +171,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
+        /**
+         * just
+         */
         Observable
                 .just(System.currentTimeMillis())
                 .subscribe(new Action1<Long>() {
@@ -173,32 +184,72 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-        Observable
-                .from(datas)
-                .map(new Func1<String, String>() {
+//        Observable
+//                .from(datas)
+//                .map(new Func1<String, String>() {
+//                    @Override
+//                    public String call(String s) {
+//                        return s.toUpperCase();
+//                    }
+//                })
+//                .toList()
+//                .map(new Func1<List<String>, List<String>>() {
+//                    @Override
+//                    public List<String> call(List<String> strings) {
+//                        Collections.reverse(strings);
+//                        return strings;
+//                    }
+//                })
+//                .flatMap(new Func1<List<String>, Observable<String>>() {
+//                    @Override
+//                    public Observable<String> call(List<String> strings) {
+//                        return Observable.from(strings);
+//                    }
+//                })
+//                .subscribe(new Action1<String>() {
+//                    @Override
+//                    public void call(String s) {
+//                        Log.e(MainActivity.class.getSimpleName(), s);
+//                    }
+//                });
+
+
+        /**
+         * onError & onComplete()
+         */
+
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 5; i >= 0; i--) {
+            numbers.add(i);
+        }
+
+        Observable.from(numbers)
+                .filter(new Func1<Integer, Boolean>() {
                     @Override
-                    public String call(String s) {
-                        return s.toUpperCase();
+                    public Boolean call(Integer integer) {
+                        return integer != 0;
                     }
                 })
-                .toList()
-                .map(new Func1<List<String>, List<String>>() {
+                .map(new Func1<Integer, Integer>() {
                     @Override
-                    public List<String> call(List<String> strings) {
-                        Collections.reverse(strings);
-                        return strings;
+                    public Integer call(Integer integer) {
+                        return 10 % integer;
                     }
                 })
-                .flatMap(new Func1<List<String>, Observable<String>>() {
+                .subscribe(new Subscriber<Integer>() {
                     @Override
-                    public Observable<String> call(List<String> strings) {
-                        return Observable.from(strings);
+                    public void onCompleted() {
+                        Log.e(MainActivity.class.getSimpleName(), "onCompleted");
                     }
-                })
-                .subscribe(new Action1<String>() {
+
                     @Override
-                    public void call(String s) {
-                        Log.e(MainActivity.class.getSimpleName(), s);
+                    public void onError(Throwable e) {
+                        Log.e(MainActivity.class.getSimpleName(), "onError---->" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.e(MainActivity.class.getSimpleName(), "onNext---- >Remainder is " + integer);
                     }
                 });
 
@@ -231,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 创建被观察者Observable
      */
-    private void InitObserverr() {
+    private void InitObserver() {
         myObserveable = Observable.create(
                 new Observable.OnSubscribe<String>() {
 
