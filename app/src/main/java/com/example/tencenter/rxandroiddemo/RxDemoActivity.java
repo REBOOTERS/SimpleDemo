@@ -64,18 +64,6 @@ public class RxDemoActivity extends AppCompatActivity {
         });
     }
 
-    private Response netService() {
-        Response response = null;
-        try {
-            response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return response;
-
-
-    }
-
 
     private Observable<Response> HttpService() {
         Observable myObserve;
@@ -97,6 +85,32 @@ public class RxDemoActivity extends AppCompatActivity {
 
 
         });
+
+
+//        myObserve = Observable.just(BaseUrl)
+//
+//                .flatMap(new Func1<String, Observable<Request>>() {
+//                    @Override
+//                    public Observable<Request> call(String s) {
+//                        Request request;
+//                        request = new Request.Builder()
+//                                .url(s)
+//                                .build();
+//                        return Observable.just(request);
+//                    }
+//                }).flatMap(new Func1<Request, Observable<Response>>() {
+//                    @Override
+//                    public Observable<Response> call(Request request) {
+//                        Response response=null;
+//                        try {
+//                            response=client.newCall(request).execute();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        return Observable.just(response);
+//                    }
+//                });
+
 
         return myObserve;
     }
