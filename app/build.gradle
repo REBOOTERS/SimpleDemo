@@ -16,6 +16,19 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug{
+            //show Logcat
+            buildConfigField "boolean","LOG_DEBUG","true"
+            //proguard
+            minifyEnabled false
+            // zipalign
+            zipAlignEnabled true;
+            // 移除无用的混淆配置文件
+            shrinkResources true;
+            //加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-Android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
