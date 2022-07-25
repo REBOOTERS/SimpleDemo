@@ -1,20 +1,19 @@
 package com.example.tencenter.rxandroiddemo;
 
+import java.io.IOException;
+
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-
-import java.io.IOException;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,7 +23,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by co-mall on 2016/8/3.
+ * Created by user 2016/8/3.
  */
 public class RxDemoActivity extends AppCompatActivity {
     private Context mContext;
@@ -153,7 +152,7 @@ public class RxDemoActivity extends AppCompatActivity {
         DoubanBean douban = new DoubanBean();
         douban = gson.fromJson(json, DoubanBean.class);
         //
-        Glide.with(mContext).load(douban.getIcon()).into(pic);
+//        Glide.with(mContext).load(douban.getIcon()).into(pic);
         title.setText(douban.getTitle());
         id.setText(douban.getId());
 

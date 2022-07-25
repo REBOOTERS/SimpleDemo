@@ -1,8 +1,11 @@
 package com.example.tencenter.rxandroiddemo;
 
+import androidx.annotation.Keep;
+
 /**
- * Created by co-mall on 2016/8/3.
+ * Created by user 2016/8/3.
  */
+@Keep
 public class DoubanBean {
 
     /**
