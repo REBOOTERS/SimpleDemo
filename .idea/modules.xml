@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RxJavaDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/RxJavaDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RxJavaDemo.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SimpleDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/SimpleDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SimpleDemo.app.unitTest.iml" />
     </modules>
   </component>
 </project>
