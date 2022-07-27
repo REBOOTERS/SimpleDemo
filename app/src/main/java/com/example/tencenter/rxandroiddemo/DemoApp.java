@@ -37,5 +37,12 @@ public class DemoApp extends Application {
                 System.out.println("unknown");
             }
         }
+
+        TestAll.test();
+        TestAll.AAA aa = TestAll.AAA.A;
+        System.out.println(aa);
+
+        Wrapper wrapper = new Wrapper();
+        wrapper.aaaa();
     }
 }

@@ -36,6 +36,8 @@ public class RxDemoActivity extends AppCompatActivity {
     private OkHttpClient client;
     private Request request;
 
+    private Wrapper.MyReceiver myReceiver;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

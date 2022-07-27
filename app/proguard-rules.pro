@@ -16,10 +16,6 @@
 #   public *;
 #}
 
--keepclassmembers enum * {  # 保持枚举 enum 类不被混淆
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
 
 -keepattributes SourceFile,LineNumberTable
 -optimizationpasses 5  # 指定代码的压缩级别
@@ -32,3 +28,14 @@
 -optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*  # 混淆时所采用的算法
 
 -useuniqueclassmembernames
+
+
+-keepclassmembers enum * {  # 保持枚举 enum 类不被混淆
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements java.io.Serializable {
+    public *;
+}
+-keep public class * extends android.content.BroadcastReceiver
