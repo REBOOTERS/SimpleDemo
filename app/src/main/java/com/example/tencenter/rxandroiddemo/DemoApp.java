@@ -44,5 +44,9 @@ public class DemoApp extends Application {
 
         Wrapper wrapper = new Wrapper();
         wrapper.aaaa();
+
+        OnlyOne onlyOne = OnlyOne.getInstance();
+        System.out.println(onlyOne.getTime());
+        System.out.println(onlyOne.getElapsedRealtime());
     }
 }
