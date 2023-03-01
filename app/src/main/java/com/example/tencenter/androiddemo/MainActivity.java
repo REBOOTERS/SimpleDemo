@@ -1,14 +1,23 @@
-package com.example.tencenter.rxandroiddemo;
+package com.example.tencenter.androiddemo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
+
+import com.example.tencenter.androiddemo.inner.Direction;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
@@ -29,12 +38,32 @@ public class MainActivity extends AppCompatActivity {
      */
     private Subscriber<String> mySubscriber;
 
+    private Direction direction;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        WindowInsetsControllerCompat controllerCompat =
+                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        controllerCompat.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE);
+        controllerCompat.hide(WindowInsetsCompat.Type.navigationBars());
+
+        direction = Direction.LEFT;
+        switch (direction) {
+            case LEFT:
+                System.out.println("left");
+                break;
+            default:
+                System.out.println("any");
+                break;
+        }
         findViewById(R.id.RxAndroid).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +71,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testConsumer(10, new Consumer() {
+                    @Override
+                    public void accept(Object o) {
+                        Toast.makeText(MainActivity.this, "sum = " + o, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        findViewById(R.id.auth).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AuthActivity.class)));
+        findViewById(R.id.webview_test).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, WebViewActivity.class)));
 
         InitObserver();
         InitSubscriber();
@@ -161,26 +203,22 @@ public class MainActivity extends AppCompatActivity {
             nums.add(i * (i + 10));
         }
 
-        Observable
-                .range(12, 10)
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer integer) {
+        Observable.range(12, 10).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
 //                        Log.e(MainActivity.class.getSimpleName(), "the integer is " + integer);
-                    }
-                });
+            }
+        });
 
         /**
          * just
          */
-        Observable
-                .just(System.currentTimeMillis())
-                .subscribe(new Action1<Long>() {
-                    @Override
-                    public void call(Long aLong) {
-                        Log.e(MainActivity.class.getSimpleName(), "the aLong is " + aLong);
-                    }
-                });
+        Observable.just(System.currentTimeMillis()).subscribe(new Action1<Long>() {
+            @Override
+            public void call(Long aLong) {
+                Log.e(MainActivity.class.getSimpleName(), "the aLong is " + aLong);
+            }
+        });
 
 
 //        Observable
@@ -222,35 +260,32 @@ public class MainActivity extends AppCompatActivity {
             numbers.add(i);
         }
 
-        Observable.from(numbers)
-                .filter(new Func1<Integer, Boolean>() {
-                    @Override
-                    public Boolean call(Integer integer) {
-                        return integer != 0;
-                    }
-                })
-                .map(new Func1<Integer, Integer>() {
-                    @Override
-                    public Integer call(Integer integer) {
-                        return 10 % integer;
-                    }
-                })
-                .subscribe(new Subscriber<Integer>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.e(MainActivity.class.getSimpleName(), "onCompleted");
-                    }
+        Observable.from(numbers).filter(new Func1<Integer, Boolean>() {
+            @Override
+            public Boolean call(Integer integer) {
+                return integer != 0;
+            }
+        }).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                return 10 % integer;
+            }
+        }).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                Log.e(MainActivity.class.getSimpleName(), "onCompleted");
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(MainActivity.class.getSimpleName(), "onError---->" + e.getMessage());
-                    }
+            @Override
+            public void onError(Throwable e) {
+                Log.e(MainActivity.class.getSimpleName(), "onError---->" + e.getMessage());
+            }
 
-                    @Override
-                    public void onNext(Integer integer) {
-                        Log.e(MainActivity.class.getSimpleName(), "onNext---- >Remainder is " + integer);
-                    }
-                });
+            @Override
+            public void onNext(Integer integer) {
+                Log.e(MainActivity.class.getSimpleName(), "onNext---- >Remainder is " + integer);
+            }
+        });
 
 
     }
@@ -282,19 +317,25 @@ public class MainActivity extends AppCompatActivity {
      * 创建被观察者Observable
      */
     private void InitObserver() {
-        myObserveable = Observable.create(
-                new Observable.OnSubscribe<String>() {
+        myObserveable = Observable.create(new Observable.OnSubscribe<String>() {
 
-                    @Override
-                    public void call(Subscriber<? super String> subscriber) {
-                        subscriber.onNext("hello world");
-                        subscriber.onCompleted();
-                    }
-                }
-        );
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext("hello world");
+                subscriber.onCompleted();
+            }
+        });
         /**
          * 只发出一个事件就结束的Observable
          */
         oneActionObserveable = Observable.just("hello world");
+    }
+
+    private void testConsumer(int i, Consumer callback) {
+        int sum = 0;
+        for (int i1 = 0; i1 < i; i1++) {
+            sum = sum + i1;
+        }
+        callback.accept(sum);
     }
 }

@@ -35,6 +35,10 @@
     public static ** valueOf(java.lang.String);
 }
 
+-keepclasseswithmembers class com.example.tencenter.rxandroiddemo.NoUseClass {
+    public <methods>;
+}
+
 -keep class * implements java.io.Serializable {
     public *;
 }

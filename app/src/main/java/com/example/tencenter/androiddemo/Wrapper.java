@@ -1,9 +1,11 @@
-package com.example.tencenter.rxandroiddemo;
+package com.example.tencenter.androiddemo;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import com.example.tencenter.androiddemo.inner.IBarInterface;
 
 public class Wrapper {
     private static final String TAG = "Wrapper";
@@ -29,6 +31,30 @@ public class Wrapper {
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive() called with: context = [" + context + "], intent = [" + intent
                     + "]");
+
+            OnlyOne onlyOne = OnlyOne.getInstance();
+            onlyOne.setFooCallback(new OnlyOne.FooCallback() {
+                @Override
+                public void onCall() {
+
+                }
+
+                @Override
+                public int onBack() {
+                    return 0;
+                }
+            });
+            onlyOne.listen(new IBarInterface() {
+                @Override
+                public void barbar() {
+                    System.out.println("bar");
+                }
+
+                @Override
+                public void go(String input) {
+                    System.out.println(input);
+                }
+            });
         }
     }
 }

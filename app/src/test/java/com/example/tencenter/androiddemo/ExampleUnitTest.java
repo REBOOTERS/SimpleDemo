@@ -1,4 +1,4 @@
-package com.example.tencenter.rxandroiddemo;
+package com.example.tencenter.androiddemo;
 
 import org.junit.Test;
 

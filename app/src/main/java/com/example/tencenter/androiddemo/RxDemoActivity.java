@@ -1,8 +1,7 @@
-package com.example.tencenter.rxandroiddemo;
+package com.example.tencenter.androiddemo;
 
 import java.io.IOException;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import android.content.Context;
@@ -38,12 +37,22 @@ public class RxDemoActivity extends AppCompatActivity {
 
     private Wrapper.MyReceiver myReceiver;
 
+    private WEEK mWeek;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_rxdemo);
         Init();
+    }
+
+    public void setWeek(WEEK week) {
+        mWeek = week;
+    }
+
+    public WEEK getWeek() {
+        return mWeek;
     }
 
     private void Init() {
@@ -139,6 +148,8 @@ public class RxDemoActivity extends AppCompatActivity {
                                 String json = response.body().string();
                                 Log.e("onNext", json);
                                 setView(json);
+                                WEEK week = getWeek();
+                                Log.d("onNext", "the week is " + week);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -155,6 +166,7 @@ public class RxDemoActivity extends AppCompatActivity {
         douban = gson.fromJson(json, DoubanBean.class);
         //
 //        Glide.with(mContext).load(douban.getIcon()).into(pic);
+        setWeek(WEEK.FIVE);
         title.setText(douban.getTitle());
         id.setText(douban.getId());
 

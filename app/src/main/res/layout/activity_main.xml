@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.tencenter.rxandroiddemo.MainActivity">
+    android:background="#009688"
+    tools:context="com.example.tencenter.androiddemo.MainActivity">
 
     <Button
         android:id="@+id/RxAndroid"
@@ -16,5 +17,32 @@
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello RxAndroid" />
+        android:text="Hello" />
+
+    <Button
+        android:id="@+id/test"
+        android:textSize="20sp"
+        android:padding="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test" />
+    <Button
+        android:id="@+id/auth"
+        android:textSize="20sp"
+        android:padding="20dp"
+        android:layout_below="@id/test"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="auth" />
+    <Button
+        android:id="@+id/webview_test"
+        android:textSize="20sp"
+        android:padding="20dp"
+        android:layout_below="@id/auth"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="webview_test" />
 </RelativeLayout>
